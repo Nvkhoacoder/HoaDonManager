@@ -3,19 +3,22 @@ package ui;
 
 import controller.SuaHDController;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class SuaHDInputUi {
+    private File fileData = null;
     private SuaHDController suaHDController = null;
     private Scanner keyBoard = null;
     private PrintWriter screenPrompt = null;
     private String hoaDonIDPrompt, ngayHoaDonPrompt, tenKhachHangPrompt, maPhongPrompt,
             donGiaPrompt, gioThuePrompt, ngayThuePrompt, loaiHD;
 
-    public SuaHDInputUi(SuaHDController suaHDController, Scanner keyBoard, PrintWriter screenPrompt) {
+    public SuaHDInputUi(SuaHDController suaHDController, Scanner keyBoard, PrintWriter screenPrompt, File fileData) {
+        this.fileData = fileData;
         this.suaHDController = suaHDController;
         this.keyBoard = keyBoard;
         this.screenPrompt = screenPrompt;
@@ -49,12 +52,12 @@ public class SuaHDInputUi {
             screenPrompt.print(gioThuePrompt);screenPrompt.flush();
             double gioThue = keyBoard.nextDouble();keyBoard.nextLine();
 
-            suaHDController.suaHD(maHoaDon,ngayHoaDon,tenKhachHang,maPhong,donGia,gioThue);
+            suaHDController.suaHD(maHoaDon,ngayHoaDon,tenKhachHang,maPhong,donGia,gioThue,fileData);
         } else if("Ngay".equalsIgnoreCase(loaiHD)){
             screenPrompt.print(ngayThuePrompt);screenPrompt.flush();
             int ngayThue = keyBoard.nextInt();keyBoard.nextLine();
 
-            suaHDController.suaHD(maHoaDon,ngayHoaDon,tenKhachHang,maPhong,donGia,ngayThue);
+            suaHDController.suaHD(maHoaDon,ngayHoaDon,tenKhachHang,maPhong,donGia,ngayThue,fileData);
         }
     }
 }

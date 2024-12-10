@@ -10,14 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HoaDonDatabase {
-    private static ArrayList<HoaDon> listHD = null;
+    private static ArrayList<HoaDon> listHD = new ArrayList<>();;
     private static int count = 0;
 
-    public static void initDatabase() {
-        listHD = new ArrayList<>();
-        addHoaDon(new HoaDonGio("nvk544", LocalDate.of(2024,04,05),"Nguyễn Vũ Khoa","LM10",100000,15));
-        addHoaDon(new HoaDonNgay("tnat2806",LocalDate.of(2024,06,28),"Trần Như Ái Trinh","AR10",120000,10));
-    }
 
     public static void addHoaDon(HoaDon hoaDon) {
         listHD.add(hoaDon);
@@ -32,70 +27,50 @@ public class HoaDonDatabase {
         return count;
     }
 
-    public static void suaHoaDon(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double loaiHD) {
+    public static void suaHoaDon(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double loaiHD, File fileData) {
+        docTuFile(fileData);
         boolean found = false;
-        List<HoaDon> danhSachHoaDon = new ArrayList<>();
-        FileReader fileReader = null;
-        BufferedReader br = null;
-        FileWriter fileWriter = null;
-        BufferedWriter bw = null;
         if(hoaDonID != null) {
             for (HoaDon hoaDon : listHD) {
-                try {
-                    // Đọc file hiện tại
-                    fileReader = new FileReader(fileData);
-                    br = new BufferedReader(fileReader);
-                    String line;
-
-                    while ((line = br.readLine()) != null) {
-                        // Chuyển đổi dòng thành đối tượng HoaDon
-                        HoaDon hd = HoaDon.fromString(line);
-                        if (hd.getHoaDonID().equals(hoaDonID)) {
-                            // Cập nhật thông tin hóa đơn
-                            hd.setNgayHoaDon(ngayHoaDon);
-                            hd.setTenKhachHang(tenKhachHang);
-                            hd.setMaPhong(maPhong);
-                            hd.setDonGia(donGia);
-                            if(hoaDon instanceof HoaDonGio) {
-                                ((HoaDonGio) hoaDon).setGioThue(loaiHD);
-                            } else if(hoaDon instanceof HoaDonNgay) {
-                                ((HoaDonNgay) hoaDon).setNgayThue((int) loaiHD);
-                            }
-                        }
-                        danhSachHoaDon.add(hd);
+                if (hoaDon.getHoaDonID().equals(hoaDonID)) {  // Check if HoaDonID matches
+                    // Update the properties of the found HoaDon object
+                    hoaDon.setNgayHoaDon(ngayHoaDon);
+                    hoaDon.setTenKhachHang(tenKhachHang);
+                    hoaDon.setMaPhong(maPhong);
+                    hoaDon.setDonGia(donGia);
+                    if(hoaDon instanceof HoaDonGio) {
+                        ((HoaDonGio) hoaDon).setGioThue(loaiHD);
+                    } else if(hoaDon instanceof HoaDonNgay) {
+                        ((HoaDonNgay) hoaDon).setNgayThue((int) loaiHD);
                     }
-                    br.close();
-
-                    // Ghi lại toàn bộ danh sách vào file
-                    fileWriter = new FileWriter(fileData);
-                    bw = new BufferedWriter(fileWriter);
-
-                    for (HoaDon hd : danhSachHoaDon) {
-                        bw.write(hd.toString());
-                        bw.newLine();
-                    }
-                    bw.flush();
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (br != null) br.close();
-                        if (fileReader != null) fileReader.close();
-                        if (bw != null) bw.close();
-                        if (fileWriter != null) fileWriter.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
                     found = true;
                     break;
                 }
             }
-            if(!found) {
-                System.out.println("Không tìm thấy Hoá Đơn " + hoaDonID + " trong danh sách Hoá Đơn");
+            if (found) {
+                try (FileWriter fileWriter = new FileWriter(fileData);
+                     BufferedWriter bw = new BufferedWriter(fileWriter)) {
+                    // Write each HoaDon object back to the file in the correct format
+                    for (HoaDon hoaDon : listHD) {
+                        // Write the invoice in CSV format
+                        if (hoaDon instanceof HoaDonNgay) {
+                            HoaDonNgay hoaDonNgay = (HoaDonNgay) hoaDon;
+                            bw.write(hoaDonNgay.getHoaDonID() + "," + hoaDonNgay.getNgayHoaDon() + ","
+                                    + hoaDonNgay.getTenKhachHang() + "," + hoaDonNgay.getMaPhong() + ","
+                                    + hoaDonNgay.getDonGia() + "," + hoaDonNgay.getNgayThue());  // Assume LoaiHD is an integer for HoaDonNgay
+                        } else if (hoaDon instanceof HoaDonGio) {
+                            HoaDonGio hoaDonGio = (HoaDonGio) hoaDon;
+                            bw.write(hoaDonGio.getHoaDonID() + "," + hoaDonGio.getNgayHoaDon() + ","
+                                    + hoaDonGio.getTenKhachHang() + "," + hoaDonGio.getMaPhong() + ","
+                                    + hoaDonGio.getDonGia() + "," + hoaDonGio.getGioThue());  // LoaiHD will be a decimal for HoaDonGio
+                        }
+                        bw.newLine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("Hóa đơn không tìm thấy.");
             }
         }
     }
@@ -146,7 +121,6 @@ public class HoaDonDatabase {
         try {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fileReader);
-            System.out.println("Danh sách hóa đơn từ file:");
             String line;
             while ((line = br.readLine()) != null) {
                 // Tách chuỗi theo dấu ',' để lấy các giá trị của hóa đơn
@@ -167,8 +141,6 @@ public class HoaDonDatabase {
                     } else {  // Nếu loaiHD không phải số nguyên, là HoaDonGio
                         hoaDon = new HoaDonGio(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD);
                     }
-
-                    // Thêm hóa đơn vào danh sách
                     listHD.add(hoaDon);
                 }
             }

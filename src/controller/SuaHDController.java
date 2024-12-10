@@ -3,6 +3,7 @@ package controller;
 import database.SuaHDDao;
 import ui.SuaHDOutputUi;
 
+import java.io.File;
 import java.time.LocalDate;
 
 public class SuaHDController {
@@ -14,13 +15,13 @@ public class SuaHDController {
         this.suaHDOutputUi = suaHDOutputUi;
     }
 
-    public void suaHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double gioThue) {
-        suaHDDao.suaHD(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue);
+    public void suaHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double gioThue, File fileData) {
+        suaHDDao.suaHD(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue, fileData);
         suaHDOutputUi.hienThongBao();
     }
 
-    public void suaHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, int ngayThue) {
-        suaHDDao.suaHD(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue);
+    public void suaHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, int ngayThue, File fileData) {
+        suaHDDao.suaHD(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue, fileData);
         suaHDOutputUi.hienThongBao();
     }
 }

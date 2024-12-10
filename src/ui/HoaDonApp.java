@@ -7,13 +7,13 @@ import database.SuaHDDao;
 import database.ThemHDDao;
 import database.ThemHDDataFile;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class HoaDonApp {
     public static void main(String[] args) {
-        HoaDonDatabase.initDatabase();
-
+        File fileData = new File("HoaDonDatabase.txt");
         ThemHDDataFile themHDDataFile = new ThemHDDataFile("HoaDonDatabase.txt");
         SuaHDDao suaHDDao = new SuaHDDao("HoaDonDatabase.txt");
         PrintWriter screenPrompt = new PrintWriter(System.out, true);
@@ -23,7 +23,7 @@ public class HoaDonApp {
         SuaHDOutputUi suaHDOutputUi = new SuaHDOutputUi(screenPrompt);
         SuaHDController suaHDController = new SuaHDController(suaHDDao, suaHDOutputUi);
         ThemHDInputUi themHDInputUi = new ThemHDInputUi(themHDController,keyBoard,screenPrompt);
-        SuaHDInputUi suaHDInputUi = new SuaHDInputUi(suaHDController,keyBoard,screenPrompt);
+        SuaHDInputUi suaHDInputUi = new SuaHDInputUi(suaHDController,keyBoard,screenPrompt,fileData);
         HoaDonMenuConsoleUi hoaDonMenuConsoleUi = new HoaDonMenuConsoleUi(keyBoard,screenPrompt,themHDInputUi,suaHDInputUi);
 
         hoaDonMenuConsoleUi.hoaDonProgram();
