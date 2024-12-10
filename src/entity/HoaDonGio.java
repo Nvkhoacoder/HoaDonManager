@@ -32,4 +32,9 @@ public class HoaDonGio extends HoaDon implements Serializable {
             return 0;
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + String.format(",%.1f", gioThue);
+    }
 }

@@ -14,8 +14,8 @@ public class HoaDonApp {
     public static void main(String[] args) {
         HoaDonDatabase.initDatabase();
 
-        ThemHDDataFile themHDDataFile = new ThemHDDataFile("HoaDonData.txt");
-        SuaHDDao suaHDDao = new SuaHDDao();
+        ThemHDDataFile themHDDataFile = new ThemHDDataFile("HoaDonDatabase.txt");
+        SuaHDDao suaHDDao = new SuaHDDao("HoaDonDatabase.txt");
         PrintWriter screenPrompt = new PrintWriter(System.out, true);
         Scanner keyBoard = new Scanner(System.in);
         ThemHDOutputUi themHDOutputUi = new ThemHDOutputUi(screenPrompt);

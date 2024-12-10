@@ -27,4 +27,9 @@ public class HoaDonNgay extends HoaDon implements Serializable {
             return ((donGia * 7) + (ngayThue - 7) * donGia * 0.8);
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + String.format(",%d", ngayThue);
+    }
 }

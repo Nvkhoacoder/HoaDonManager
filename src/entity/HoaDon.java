@@ -59,4 +59,10 @@ public abstract class HoaDon implements Serializable {
     }
 
     public abstract double tongTien();
+
+    @Override
+    public String toString() {
+        return String.format("%s,%s,%s,%s,%.1f",
+                hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia);
+    }
 }
