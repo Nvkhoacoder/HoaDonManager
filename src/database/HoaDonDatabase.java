@@ -32,8 +32,7 @@ public class HoaDonDatabase {
         boolean found = false;
         if(hoaDonID != null) {
             for (HoaDon hoaDon : listHD) {
-                if (hoaDon.getHoaDonID().equals(hoaDonID)) {  // Check if HoaDonID matches
-                    // Update the properties of the found HoaDon object
+                if (hoaDon.getHoaDonID().equals(hoaDonID)) {
                     hoaDon.setNgayHoaDon(ngayHoaDon);
                     hoaDon.setTenKhachHang(tenKhachHang);
                     hoaDon.setMaPhong(maPhong);
@@ -50,19 +49,17 @@ public class HoaDonDatabase {
             if (found) {
                 try (FileWriter fileWriter = new FileWriter(fileData);
                      BufferedWriter bw = new BufferedWriter(fileWriter)) {
-                    // Write each HoaDon object back to the file in the correct format
                     for (HoaDon hoaDon : listHD) {
-                        // Write the invoice in CSV format
                         if (hoaDon instanceof HoaDonNgay) {
                             HoaDonNgay hoaDonNgay = (HoaDonNgay) hoaDon;
                             bw.write(hoaDonNgay.getHoaDonID() + "," + hoaDonNgay.getNgayHoaDon() + ","
                                     + hoaDonNgay.getTenKhachHang() + "," + hoaDonNgay.getMaPhong() + ","
-                                    + hoaDonNgay.getDonGia() + "," + hoaDonNgay.getNgayThue());  // Assume LoaiHD is an integer for HoaDonNgay
+                                    + hoaDonNgay.getDonGia() + "," + hoaDonNgay.getNgayThue());
                         } else if (hoaDon instanceof HoaDonGio) {
                             HoaDonGio hoaDonGio = (HoaDonGio) hoaDon;
                             bw.write(hoaDonGio.getHoaDonID() + "," + hoaDonGio.getNgayHoaDon() + ","
                                     + hoaDonGio.getTenKhachHang() + "," + hoaDonGio.getMaPhong() + ","
-                                    + hoaDonGio.getDonGia() + "," + hoaDonGio.getGioThue());  // LoaiHD will be a decimal for HoaDonGio
+                                    + hoaDonGio.getDonGia() + "," + hoaDonGio.getGioThue());
                         }
                         bw.newLine();
                     }
@@ -123,10 +120,8 @@ public class HoaDonDatabase {
             BufferedReader br = new BufferedReader(fileReader);
             String line;
             while ((line = br.readLine()) != null) {
-                // Tách chuỗi theo dấu ',' để lấy các giá trị của hóa đơn
                 String[] data = line.split(",");
                 if (data.length == 6) {
-                    // Kiểm tra xem dữ liệu có đúng theo định dạng
                     String hoaDonID = data[0];
                     LocalDate ngayHoaDon = LocalDate.parse(data[1]);
                     String tenKhachHang = data[2];
@@ -134,11 +129,10 @@ public class HoaDonDatabase {
                     double donGia = Double.parseDouble(data[4]);
                     double loaiHD = Double.parseDouble(data[5]);
 
-                    // Tạo đối tượng HoaDon tương ứng (HoaDonGio hoặc HoaDonNgay)
                     HoaDon hoaDon;
-                    if (loaiHD % 1 == 0) {  // Kiểm tra nếu loaiHD là số nguyên (ứng với HoaDonNgay)
+                    if (loaiHD % 1 == 0) {
                         hoaDon = new HoaDonNgay(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, (int) loaiHD);
-                    } else {  // Nếu loaiHD không phải số nguyên, là HoaDonGio
+                    } else {
                         hoaDon = new HoaDonGio(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD);
                     }
                     listHD.add(hoaDon);

@@ -19,10 +19,7 @@ public class ThemHDDataFile {
         BufferedReader br = null;
 
         try {
-            //mở kênh đến file cần ghi đối tượng
             fileStream = new FileWriter(fileData, true);
-            //dùng công cụ để ghi xuống file thông qua
-            //kênh fileStream
             bw = new BufferedWriter(fileStream);
             bw.write(hd.toString());
             bw.newLine();
