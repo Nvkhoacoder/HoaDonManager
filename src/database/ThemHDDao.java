@@ -4,7 +4,7 @@ import entity.HoaDon;
 
 public class ThemHDDao {
 
-    public void ThemHD(HoaDon hd) {
+    public void themHD(HoaDon hd) {
         HoaDonDatabase.addHoaDon(hd);
     }
 }

@@ -1,8 +1,9 @@
 package entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class HoaDon {
+public abstract class HoaDon implements Serializable {
     protected String hoaDonID;
     protected LocalDate ngayHoaDon;
     protected String tenKhachHang;

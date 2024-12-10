@@ -1,8 +1,9 @@
 package entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class HoaDonGio extends HoaDon {
+public class HoaDonGio extends HoaDon implements Serializable {
     private double gioThue;
 
     public HoaDonGio(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double gioThue) {

@@ -1,6 +1,7 @@
 package controller;
 
 import database.ThemHDDao;
+import database.ThemHDDataFile;
 import entity.HoaDon;
 import entity.HoaDonGio;
 import entity.HoaDonNgay;
@@ -9,11 +10,11 @@ import ui.ThemHDOutputUi;
 import java.time.LocalDate;
 
 public class ThemHDController {
-    private ThemHDDao themHDDao = null;
+    private ThemHDDataFile themHDDataFile = null;
     private ThemHDOutputUi themHDOutputUi = null;
 
-    public ThemHDController(ThemHDDao themHDDao, ThemHDOutputUi themHDOutputUi) {
-        this.themHDDao = themHDDao;
+    public ThemHDController(ThemHDDataFile themHDDataFile, ThemHDOutputUi themHDOutputUi) {
+        this.themHDDataFile = themHDDataFile;
         this.themHDOutputUi = themHDOutputUi;
     }
 
@@ -28,7 +29,7 @@ public class ThemHDController {
     }
 
     private void themHDData(HoaDon hoaDon) {
-        themHDDao.ThemHD(hoaDon);
+        themHDDataFile.themHD(hoaDon);
         themHDOutputUi.hienThongBao();
     }
 }

@@ -5,6 +5,7 @@ import controller.ThemHDController;
 import database.HoaDonDatabase;
 import database.SuaHDDao;
 import database.ThemHDDao;
+import database.ThemHDDataFile;
 
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -13,12 +14,12 @@ public class HoaDonApp {
     public static void main(String[] args) {
         HoaDonDatabase.initDatabase();
 
-        ThemHDDao themHDDao = new ThemHDDao();
+        ThemHDDataFile themHDDataFile = new ThemHDDataFile("HoaDonData.txt");
         SuaHDDao suaHDDao = new SuaHDDao();
         PrintWriter screenPrompt = new PrintWriter(System.out, true);
         Scanner keyBoard = new Scanner(System.in);
         ThemHDOutputUi themHDOutputUi = new ThemHDOutputUi(screenPrompt);
-        ThemHDController themHDController = new ThemHDController(themHDDao, themHDOutputUi);
+        ThemHDController themHDController = new ThemHDController(themHDDataFile, themHDOutputUi);
         SuaHDOutputUi suaHDOutputUi = new SuaHDOutputUi(screenPrompt);
         SuaHDController suaHDController = new SuaHDController(suaHDDao, suaHDOutputUi);
         ThemHDInputUi themHDInputUi = new ThemHDInputUi(themHDController,keyBoard,screenPrompt);
