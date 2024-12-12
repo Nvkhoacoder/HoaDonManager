@@ -30,22 +30,25 @@ public class HoaDonDatabase {
     public static void suaHoaDon(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double loaiHD, File fileData) {
         docTuFile(fileData);
         boolean found = false;
-        if(hoaDonID != null) {
+
+        if (hoaDonID != null) {
             for (HoaDon hoaDon : listHD) {
                 if (hoaDon.getHoaDonID().equals(hoaDonID)) {
+                    // Cập nhật thông tin hóa đơn
                     hoaDon.setNgayHoaDon(ngayHoaDon);
                     hoaDon.setTenKhachHang(tenKhachHang);
                     hoaDon.setMaPhong(maPhong);
                     hoaDon.setDonGia(donGia);
-                    if(hoaDon instanceof HoaDonGio) {
+                    if (hoaDon instanceof HoaDonGio) {
                         ((HoaDonGio) hoaDon).setGioThue(loaiHD);
-                    } else if(hoaDon instanceof HoaDonNgay) {
+                    } else if (hoaDon instanceof HoaDonNgay) {
                         ((HoaDonNgay) hoaDon).setNgayThue((int) loaiHD);
                     }
                     found = true;
                     break;
                 }
             }
+
             if (found) {
                 try (FileWriter fileWriter = new FileWriter(fileData);
                      BufferedWriter bw = new BufferedWriter(fileWriter)) {
@@ -67,8 +70,10 @@ public class HoaDonDatabase {
                     e.printStackTrace();
                 }
             } else {
-                System.out.println("Hóa đơn không tìm thấy.");
+                System.out.println("Không tìm thấy hóa đơn với mã: " + hoaDonID);
             }
+        } else {
+            System.out.println("Mã hóa đơn không được để trống.");
         }
     }
 
