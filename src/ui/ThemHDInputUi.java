@@ -31,29 +31,73 @@ public class ThemHDInputUi {
     public void nhapThongTinHoaDon() {
         screenPrompt.print(hoaDonIDPrompt);screenPrompt.flush();
         String maHoaDon = keyBoard.nextLine();
+        if (maHoaDon == null || maHoaDon.isEmpty()) {
+            screenPrompt.println("Mã hóa đơn không được để trống.");
+            return;
+        }
+
         screenPrompt.print(ngayHoaDonPrompt); screenPrompt.flush();
         String ngayHoaDonStr = keyBoard.nextLine();
-        LocalDate ngayHoaDon = LocalDate.parse(ngayHoaDonStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate ngayHoaDon;
+        try {
+            ngayHoaDon = LocalDate.parse(ngayHoaDonStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } catch (Exception e) {
+            screenPrompt.println("Ngày hóa đơn không hợp lệ.");
+            return;
+        }
+
         screenPrompt.print(tenKhachHangPrompt);screenPrompt.flush();
         String tenKhachHang = keyBoard.nextLine();
+        if (tenKhachHang == null || tenKhachHang.isEmpty()) {
+            screenPrompt.println("Tên khách hàng không được để trống.");
+            return;
+        }
+
         screenPrompt.print(maPhongPrompt);screenPrompt.flush();
         String maPhong = keyBoard.nextLine();
+        if (maPhong == null || maPhong.isEmpty()) {
+            screenPrompt.println("Mã phòng không được để trống.");
+            return;
+        }
+
         screenPrompt.print(donGiaPrompt);screenPrompt.flush();
-        double donGia = keyBoard.nextDouble();keyBoard.nextLine();
+        double donGia;
+        try {
+            donGia = keyBoard.nextDouble();keyBoard.nextLine();
+        } catch (Exception e) {
+            screenPrompt.println("Đơn giá phải là số hợp lệ.");
+            keyBoard.nextLine(); // Clear buffer
+            return;
+        }
+
         screenPrompt.print(loaiHD);screenPrompt.flush();
         String loaiHD = keyBoard.nextLine();
-        keyBoard.nextLine();
-
-        if("Gio".equalsIgnoreCase(loaiHD)){
+        if ("Gio".equalsIgnoreCase(loaiHD)) {
             screenPrompt.print(gioThuePrompt);screenPrompt.flush();
-            double gioThue = keyBoard.nextDouble();keyBoard.nextLine();
+            double gioThue;
+            try {
+                gioThue = keyBoard.nextDouble();keyBoard.nextLine();
+            } catch (Exception e) {
+                screenPrompt.println("Số giờ thuê phải là số hợp lệ.");
+                keyBoard.nextLine(); // Clear buffer
+                return;
+            }
 
-            themHDController.themHD(maHoaDon,ngayHoaDon,tenKhachHang,maPhong,donGia,gioThue);
-        } else if("Ngay".equalsIgnoreCase(loaiHD)){
+            themHDController.themHD(maHoaDon, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue);
+        } else if ("Ngay".equalsIgnoreCase(loaiHD)) {
             screenPrompt.print(ngayThuePrompt);screenPrompt.flush();
-            int ngayThue = keyBoard.nextInt();keyBoard.nextLine();
+            int ngayThue;
+            try {
+                ngayThue = keyBoard.nextInt();keyBoard.nextLine();
+            } catch (Exception e) {
+                screenPrompt.println("Số ngày thuê phải là số hợp lệ.");
+                keyBoard.nextLine(); // Clear buffer
+                return;
+            }
 
-            themHDController.themHD(maHoaDon,ngayHoaDon,tenKhachHang,maPhong,donGia,ngayThue);
+            themHDController.themHD(maHoaDon, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue);
+        } else {
+            screenPrompt.println("Loại hóa đơn không hợp lệ. Vui lòng nhập 'Gio' hoặc 'Ngay'.");
         }
     }
 }

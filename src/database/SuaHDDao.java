@@ -16,4 +16,8 @@ public class SuaHDDao {
     public void suaHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double loaiHD, File fileData) {
         HoaDonDatabase.suaHoaDon(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD, fileData);
     }
+
+    public boolean kiemTraHoaDonTonTai(String hoaDonID,File fileData){
+        return HoaDonDatabase.kiemTraHoaDonTonTai(hoaDonID,fileData);
+    }
 }

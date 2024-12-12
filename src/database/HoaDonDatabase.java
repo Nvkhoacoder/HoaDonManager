@@ -8,6 +8,7 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class HoaDonDatabase {
     private static ArrayList<HoaDon> listHD = new ArrayList<>();;
@@ -149,4 +150,23 @@ public class HoaDonDatabase {
             e.printStackTrace();
         }
     }
+
+    public static boolean kiemTraHoaDonTonTai(String maHoaDon, File fileData) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileData))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length > 0) {
+                    String hoaDonID = data[0].trim();
+                    if (hoaDonID.equals(maHoaDon)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
