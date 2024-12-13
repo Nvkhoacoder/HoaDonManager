@@ -18,6 +18,7 @@ public class SuaHDController {
     public boolean kiemTraHoaDonTonTai(String hoaDonID, File fileData){
         return suaHDDao.kiemTraHoaDonTonTai(hoaDonID, fileData);
     }
+
     public void suaHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double gioThue, File fileData) {
         suaHDDao.suaHD(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue, fileData);
         suaHDOutputUi.hienThongBao();
