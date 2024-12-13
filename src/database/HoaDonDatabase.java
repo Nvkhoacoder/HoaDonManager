@@ -35,7 +35,6 @@ public class HoaDonDatabase {
         if (hoaDonID != null) {
             for (HoaDon hoaDon : listHD) {
                 if (hoaDon.getHoaDonID().equals(hoaDonID)) {
-                    // Cập nhật thông tin hóa đơn
                     hoaDon.setNgayHoaDon(ngayHoaDon);
                     hoaDon.setTenKhachHang(tenKhachHang);
                     hoaDon.setMaPhong(maPhong);
@@ -116,11 +115,10 @@ public class HoaDonDatabase {
             return null;
         }
 
-        // Remove the HoaDon if found
         if (hoaDonToRemove != null) {
             listHD.remove(hoaDonToRemove);
 
-            // Rewrite the file with the updated list
+
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileData))) {
                 for (HoaDon hoaDon : listHD) {
                     if (hoaDon instanceof HoaDonNgay) {
@@ -146,10 +144,11 @@ public class HoaDonDatabase {
         }
     }
 
-    public static HoaDon timHoaDon(String hoaDonID) {
+    public static HoaDon timHoaDon(String hoaDonID, File fileData) {
         if(hoaDonID != null) {
             for (HoaDon hoaDon : listHD) {
-                if(hoaDon.getHoaDonID().equalsIgnoreCase(hoaDonID)) {
+                boolean found = kiemTraHoaDonTonTai(hoaDonID, fileData);
+                if (found) {
                     return hoaDon;
                 }
             }
