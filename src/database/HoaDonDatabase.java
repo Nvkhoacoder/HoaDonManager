@@ -240,4 +240,18 @@ public class HoaDonDatabase {
         return doanhThu;
     }
 
+    public static int tongHoaDon(ArrayList<HoaDon> tongHD) {
+        tongHD = queryAllHoaDon();
+        int tong = 0;
+        for (HoaDon hoaDon : tongHD) {
+            if(hoaDon instanceof HoaDonGio) {
+                tong++;
+            }
+            else if(hoaDon instanceof HoaDonNgay) {
+                tong++;
+            }
+        }
+        return tong;
+    }
+
 }
