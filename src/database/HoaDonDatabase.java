@@ -224,4 +224,15 @@ public class HoaDonDatabase {
         return false;
     }
 
+    public static double tinhDoanhThu(int thang, int nam, File fileData) {
+        docTuFile(fileData);
+        double doanhThu = 0;
+        for (HoaDon hoaDon : listHD) {
+            if (hoaDon.getNgayHoaDon().getMonthValue() == thang && hoaDon.getNgayHoaDon().getYear() == nam) {
+                doanhThu += hoaDon.tongTien();
+            }
+        }
+        return doanhThu;
+    }
+
 }
