@@ -117,6 +117,7 @@ public class HoaDonDatabase {
 
         if (hoaDonToRemove != null) {
             listHD.remove(hoaDonToRemove);
+            count--;
 
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileData))) {
@@ -176,6 +177,9 @@ public class HoaDonDatabase {
     }
 
     public static void docTuFile(File fileName) {
+        listHD.clear();
+        count = 0;
+
         try {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fileReader);
@@ -197,6 +201,7 @@ public class HoaDonDatabase {
                         hoaDon = new HoaDonGio(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD);
                     }
                     listHD.add(hoaDon);
+                    count++;
                 }
             }
         } catch (FileNotFoundException e) {
