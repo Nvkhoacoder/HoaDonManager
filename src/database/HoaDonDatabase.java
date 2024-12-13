@@ -78,16 +78,72 @@ public class HoaDonDatabase {
         }
     }
 
-    public static HoaDon xoaHoaDon(String hoaDonID) {
-        if(hoaDonID != null) {
-            for (HoaDon hoaDon : listHD) {
-                if(hoaDon.getHoaDonID().equalsIgnoreCase(hoaDonID)) {
-                    listHD.remove(hoaDon);
-                    return hoaDon;
+    public static HoaDon xoaHoaDon(String hoaDonID,File fileData) {
+        if (hoaDonID == null || hoaDonID.trim().isEmpty()) {
+            System.out.println("Mã hóa đơn không được để trống.");
+            return null;
+        }
+
+        HoaDon hoaDonToRemove = null;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileData))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 6) {
+                    String id = data[0];
+                    LocalDate ngayHoaDon = LocalDate.parse(data[1]);
+                    String tenKhachHang = data[2];
+                    String maPhong = data[3];
+                    double donGia = Double.parseDouble(data[4]);
+                    double loaiHD = Double.parseDouble(data[5]);
+
+                    HoaDon hoaDon;
+                    if (loaiHD % 1 == 0) {
+                        hoaDon = new HoaDonNgay(id, ngayHoaDon, tenKhachHang, maPhong, donGia, (int) loaiHD);
+                    } else {
+                        hoaDon = new HoaDonGio(id, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD);
+                    }
+                    listHD.add(hoaDon);
+
+                    if (id.equalsIgnoreCase(hoaDonID)) {
+                        hoaDonToRemove = hoaDon;
+                    }
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
-        return null;
+
+        // Remove the HoaDon if found
+        if (hoaDonToRemove != null) {
+            listHD.remove(hoaDonToRemove);
+
+            // Rewrite the file with the updated list
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileData))) {
+                for (HoaDon hoaDon : listHD) {
+                    if (hoaDon instanceof HoaDonNgay) {
+                        HoaDonNgay hoaDonNgay = (HoaDonNgay) hoaDon;
+                        bw.write(hoaDonNgay.getHoaDonID() + "," + hoaDonNgay.getNgayHoaDon() + ","
+                                + hoaDonNgay.getTenKhachHang() + "," + hoaDonNgay.getMaPhong() + ","
+                                + hoaDonNgay.getDonGia() + "," + hoaDonNgay.getNgayThue());
+                    } else if (hoaDon instanceof HoaDonGio) {
+                        HoaDonGio hoaDonGio = (HoaDonGio) hoaDon;
+                        bw.write(hoaDonGio.getHoaDonID() + "," + hoaDonGio.getNgayHoaDon() + ","
+                                + hoaDonGio.getTenKhachHang() + "," + hoaDonGio.getMaPhong() + ","
+                                + hoaDonGio.getDonGia() + "," + hoaDonGio.getGioThue());
+                    }
+                    bw.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return hoaDonToRemove;
+        } else {
+            System.out.println("Không tìm thấy hóa đơn với mã: " + hoaDonID);
+            return null;
+        }
     }
 
     public static HoaDon timHoaDon(String hoaDonID) {

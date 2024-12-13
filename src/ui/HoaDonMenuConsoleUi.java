@@ -9,12 +9,14 @@ public class HoaDonMenuConsoleUi {
     private PrintWriter screenPrompt = null;
     private ThemHDInputUi themHDInputUi = null;
     private SuaHDInputUi suaHDInputUi = null;
+    private XoaHDInputUi xoaHDInputUi = null;
 
-    public HoaDonMenuConsoleUi(Scanner keyBoardInput, PrintWriter screenPrompt, ThemHDInputUi themHDInputUi, SuaHDInputUi suaHDInputUi) {
+    public HoaDonMenuConsoleUi(Scanner keyBoardInput, PrintWriter screenPrompt, ThemHDInputUi themHDInputUi, SuaHDInputUi suaHDInputUi, XoaHDInputUi xoaHDInputUi) {
         this.keyBoardInput = keyBoardInput;
         this.screenPrompt = screenPrompt;
         this.themHDInputUi = themHDInputUi;
         this.suaHDInputUi = suaHDInputUi;
+        this.xoaHDInputUi = xoaHDInputUi;
         prompt = "Vui Lòng Nhập ->";
     }
 
@@ -43,12 +45,12 @@ public class HoaDonMenuConsoleUi {
                 themHD();
                 continue;
             }
-//
-//            if (command.equalsIgnoreCase("remove")) {
-//
-//                xoaHD();
-//                continue;
-//            }
+
+            if (command.equalsIgnoreCase("remove")) {
+
+                xoaHD();
+                continue;
+            }
 
             if (command.equalsIgnoreCase("update")) {
 
@@ -112,10 +114,10 @@ public class HoaDonMenuConsoleUi {
 //
 //    }
 //
-//    private void xoaHD() {
-//        xoaHDInputUi.nhapMaHoaDonCanXoa();
-//
-//    }
+    private void xoaHD() {
+        xoaHDInputUi.nhapMaHoaDonCanXoa();
+
+    }
 
     private void suaHD() {
         suaHDInputUi.nhapThongTinSuaHD();

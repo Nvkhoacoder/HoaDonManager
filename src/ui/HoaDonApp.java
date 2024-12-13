@@ -2,10 +2,8 @@ package ui;
 
 import controller.SuaHDController;
 import controller.ThemHDController;
-import database.HoaDonDatabase;
-import database.SuaHDDao;
-import database.ThemHDDao;
-import database.ThemHDDataFile;
+import controller.XoaHDController;
+import database.*;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -24,7 +22,11 @@ public class HoaDonApp {
         SuaHDController suaHDController = new SuaHDController(suaHDDao, suaHDOutputUi);
         ThemHDInputUi themHDInputUi = new ThemHDInputUi(themHDController,keyBoard,screenPrompt);
         SuaHDInputUi suaHDInputUi = new SuaHDInputUi(suaHDController,keyBoard,screenPrompt,fileData);
-        HoaDonMenuConsoleUi hoaDonMenuConsoleUi = new HoaDonMenuConsoleUi(keyBoard,screenPrompt,themHDInputUi,suaHDInputUi);
+        XoaHDDao xoaHDDao = new XoaHDDao(fileData);
+        XoaHDOutputUi xoaHDOutputUi = new XoaHDOutputUi(screenPrompt);
+        XoaHDController xoaHDController = new XoaHDController(xoaHDDao, xoaHDOutputUi);
+        XoaHDInputUi xoaHDInputUi = new XoaHDInputUi(xoaHDController,keyBoard,screenPrompt,fileData);
+        HoaDonMenuConsoleUi hoaDonMenuConsoleUi = new HoaDonMenuConsoleUi(keyBoard,screenPrompt,themHDInputUi,suaHDInputUi,xoaHDInputUi);
 
         hoaDonMenuConsoleUi.hoaDonProgram();
     }
