@@ -15,7 +15,11 @@ public class XoaHDController {
     }
 
     public void xoaHD(String hoaDonID, File fileData) {
-        xoaHDDao.xoaHoaDon(hoaDonID, fileData);
-        xoaHDOutputUi.hienThongBao();
+        boolean isDeleted = xoaHDDao.xoaHoaDon(hoaDonID, fileData);
+        if (isDeleted) {
+            xoaHDOutputUi.hienThongBao();
+        } else {
+            System.out.println("Không tìm thấy Hoá Đơn: " + hoaDonID);
+        }
     }
 }

@@ -1,8 +1,6 @@
 package ui;
 
-import controller.SuaHDController;
-import controller.ThemHDController;
-import controller.XoaHDController;
+import controller.*;
 import database.*;
 
 import java.io.File;
@@ -26,7 +24,18 @@ public class HoaDonApp {
         XoaHDOutputUi xoaHDOutputUi = new XoaHDOutputUi(screenPrompt);
         XoaHDController xoaHDController = new XoaHDController(xoaHDDao, xoaHDOutputUi);
         XoaHDInputUi xoaHDInputUi = new XoaHDInputUi(xoaHDController,keyBoard,screenPrompt,fileData);
-        HoaDonMenuConsoleUi hoaDonMenuConsoleUi = new HoaDonMenuConsoleUi(keyBoard,screenPrompt,themHDInputUi,suaHDInputUi,xoaHDInputUi);
+        TimHDData timHDData = new TimHDData(fileData);
+        TimHDOutputUi timHDOutputUi = new TimHDOutputUi(screenPrompt);
+        TimHDController timHDController = new TimHDController(timHDData,timHDOutputUi);
+        TimHDInputUi timHDInputUi = new TimHDInputUi(timHDController,keyBoard,screenPrompt,fileData);
+        TongDoanhThuDao tongDoanhThuDao = new TongDoanhThuDao(fileData);
+        DoanhThuTheoThangOutputUi doanhThuTheoThangOutputUi = new DoanhThuTheoThangOutputUi(screenPrompt);
+        TongDoanhThuController tongDoanhThuController = new TongDoanhThuController(tongDoanhThuDao,doanhThuTheoThangOutputUi);
+        DoanhThuInputUi doanhThuInputUi = new DoanhThuInputUi(tongDoanhThuController,keyBoard,screenPrompt,fileData);
+        DemHDData demHDData = new DemHDData(fileData);
+        DemSoLuongHDOuputUi demSoLuongHDOuputUi = new DemSoLuongHDOuputUi(screenPrompt);
+        DemSoLuongHDController demSoLuongHDController = new DemSoLuongHDController(demHDData,demSoLuongHDOuputUi);
+        HoaDonMenuConsoleUi hoaDonMenuConsoleUi = new HoaDonMenuConsoleUi(keyBoard,screenPrompt,themHDInputUi,suaHDInputUi,xoaHDInputUi,timHDInputUi,doanhThuInputUi,demSoLuongHDController);
 
         hoaDonMenuConsoleUi.hoaDonProgram();
     }

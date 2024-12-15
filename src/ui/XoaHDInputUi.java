@@ -27,8 +27,4 @@ public class XoaHDInputUi {
         String maHoaDon = keyBoard.nextLine();
         xoaHDController.xoaHD(maHoaDon, fileData);
     }
-
-    public void setXoaHDController(XoaHDController xoaHDController) {
-        this.xoaHDController = xoaHDController;
-    }
 }

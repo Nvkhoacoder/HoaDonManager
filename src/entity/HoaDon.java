@@ -10,6 +10,7 @@ public abstract class HoaDon implements Serializable {
     protected String maPhong;
     protected double donGia;
 
+
     public HoaDon(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia) {
         this.hoaDonID = hoaDonID;
         this.ngayHoaDon = ngayHoaDon;

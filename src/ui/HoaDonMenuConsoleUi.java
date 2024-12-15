@@ -1,5 +1,9 @@
 package ui;
 
+import controller.DemSoLuongHDController;
+import controller.TongDoanhThuController;
+
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -10,14 +14,20 @@ public class HoaDonMenuConsoleUi {
     private ThemHDInputUi themHDInputUi = null;
     private SuaHDInputUi suaHDInputUi = null;
     private XoaHDInputUi xoaHDInputUi = null;
+    private TimHDInputUi timHDInputUi = null;
+    private DoanhThuInputUi doanhThuInputUi = null;
+    private DemSoLuongHDController demSoLuongHDController = null;
 
-    public HoaDonMenuConsoleUi(Scanner keyBoardInput, PrintWriter screenPrompt, ThemHDInputUi themHDInputUi, SuaHDInputUi suaHDInputUi, XoaHDInputUi xoaHDInputUi) {
+    public HoaDonMenuConsoleUi(Scanner keyBoardInput, PrintWriter screenPrompt, ThemHDInputUi themHDInputUi, SuaHDInputUi suaHDInputUi, XoaHDInputUi xoaHDInputUi, TimHDInputUi timHDInputUi, DoanhThuInputUi doanhThuInputUi, DemSoLuongHDController demSoLuongHDController) {
         this.keyBoardInput = keyBoardInput;
         this.screenPrompt = screenPrompt;
         this.themHDInputUi = themHDInputUi;
         this.suaHDInputUi = suaHDInputUi;
         this.xoaHDInputUi = xoaHDInputUi;
-        prompt = "Vui Lòng Nhập ->";
+        this.timHDInputUi = timHDInputUi;
+        this.doanhThuInputUi = doanhThuInputUi;
+        this.demSoLuongHDController = demSoLuongHDController;
+        this.prompt = "Vui Lòng Nhập ->";
     }
 
     public void hoaDonProgram() {
@@ -57,12 +67,12 @@ public class HoaDonMenuConsoleUi {
                 suaHD();
                 continue;
             }
-//
-//            if (command.equalsIgnoreCase("find")) {
-//
-//                timHD();
-//                continue;
-//            }
+
+            if (command.equalsIgnoreCase("find")) {
+
+                timHD();
+                continue;
+            }
 //
 //            if (command.equalsIgnoreCase("print")) {
 //
@@ -70,17 +80,17 @@ public class HoaDonMenuConsoleUi {
 //                continue;
 //            }
 //
-//            if (command.equalsIgnoreCase("sl")) {
-//
-//                tongSoLuongHD();
-//                continue;
-//            }
-//
-//            if (command.equalsIgnoreCase("dt")) {
-//
-//                tinhDTTheoThang();
-//                continue;
-//            }
+            if (command.equalsIgnoreCase("sl")) {
+
+                tongSoLuongHD();
+                continue;
+            }
+
+            if (command.equalsIgnoreCase("dt")) {
+
+                tinhDTTheoThang();
+                continue;
+            }
 
             if (command.equalsIgnoreCase("quit")) {
                 break;
@@ -123,20 +133,19 @@ public class HoaDonMenuConsoleUi {
         suaHDInputUi.nhapThongTinSuaHD();
 
     }
-//
-//    private void timHD() {
-//        timHDInputUi.nhapMaHoaDonCanTim();
-//
-//    }
-//
-//    private void tongSoLuongHD() {
-//        tongSoLuongHD.tinhTongSoLuongTheoLoai();
-//
-//    }
-//
-//    private void tinhDTTheoThang() {
-//        doanhThuTheoThang.tongDoanhThuTheoThang();
-//    }
+
+    private void timHD() {
+        timHDInputUi.nhapThongTinTim();
+    }
+
+    private void tongSoLuongHD() {
+        demSoLuongHDController.demSoLuongHD();
+
+    }
+
+    private void tinhDTTheoThang() {
+        doanhThuInputUi.tongDoanhThuTheoThang();
+    }
 
     private void about(){
         screenPrompt.println("Day la chuong trinh ve quan ly hoa don trong khach san.");

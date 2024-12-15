@@ -77,12 +77,13 @@ public class HoaDonDatabase {
         }
     }
 
-    public static HoaDon xoaHoaDon(String hoaDonID,File fileData) {
+    public static boolean xoaHoaDon(String hoaDonID,File fileData) {
         if (hoaDonID == null || hoaDonID.trim().isEmpty()) {
             System.out.println("Mã hóa đơn không được để trống.");
-            return null;
+            return false;
         }
 
+        List<HoaDon> listHD = new ArrayList<>();
         HoaDon hoaDonToRemove = null;
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileData))) {
@@ -112,13 +113,11 @@ public class HoaDonDatabase {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
 
         if (hoaDonToRemove != null) {
             listHD.remove(hoaDonToRemove);
-            count--;
-
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileData))) {
                 for (HoaDon hoaDon : listHD) {
@@ -137,24 +136,19 @@ public class HoaDonDatabase {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
-            return hoaDonToRemove;
+            return true;
         } else {
-            System.out.println("Không tìm thấy hóa đơn với mã: " + hoaDonID);
-            return null;
+            return false;
         }
     }
 
-    public static HoaDon timHoaDon(String hoaDonID, File fileData) {
-        if(hoaDonID != null) {
-            for (HoaDon hoaDon : listHD) {
-                boolean found = kiemTraHoaDonTonTai(hoaDonID, fileData);
-                if (found) {
-                    return hoaDon;
-                }
-            }
+    public static boolean timHoaDon(String hoaDonID, File fileData) {
+        if (hoaDonID != null && !hoaDonID.trim().isEmpty()) {
+            return kiemTraHoaDonTonTai(hoaDonID, fileData);
         }
-        return null;
+        return false;
     }
 
     public static void ghiVaoFile(File fileName) {
@@ -176,7 +170,7 @@ public class HoaDonDatabase {
         }
     }
 
-    public static void docTuFile(File fileName) {
+    public static List<HoaDon> docTuFile(File fileName) {
         listHD.clear();
         count = 0;
 
@@ -209,6 +203,7 @@ public class HoaDonDatabase {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return listHD;
     }
 
     public static boolean kiemTraHoaDonTonTai(String maHoaDon, File fileData) {
@@ -229,29 +224,5 @@ public class HoaDonDatabase {
         return false;
     }
 
-    public static double tinhDoanhThu(int thang, int nam, File fileData) {
-        docTuFile(fileData);
-        double doanhThu = 0;
-        for (HoaDon hoaDon : listHD) {
-            if (hoaDon.getNgayHoaDon().getMonthValue() == thang && hoaDon.getNgayHoaDon().getYear() == nam) {
-                doanhThu += hoaDon.tongTien();
-            }
-        }
-        return doanhThu;
-    }
-
-    public static int tongHoaDon(ArrayList<HoaDon> tongHD) {
-        tongHD = queryAllHoaDon();
-        int tong = 0;
-        for (HoaDon hoaDon : tongHD) {
-            if(hoaDon instanceof HoaDonGio) {
-                tong++;
-            }
-            else if(hoaDon instanceof HoaDonNgay) {
-                tong++;
-            }
-        }
-        return tong;
-    }
 
 }

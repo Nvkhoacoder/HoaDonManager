@@ -9,7 +9,7 @@ public class XoaHDDao {
         this.fileData = fileData;
     }
 
-    public void xoaHoaDon(String hoaDonId, File fileData){
-        HoaDonDatabase.xoaHoaDon(hoaDonId, fileData);
+    public boolean xoaHoaDon(String hoaDonId, File fileData){
+        return HoaDonDatabase.xoaHoaDon(hoaDonId, fileData);
     }
 }

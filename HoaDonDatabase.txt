@@ -2,3 +2,6 @@ nvk544,2024-04-05,Nguyễn Vũ Khoa,LM10,100000.0,15
 tnat2806,2024-06-28,Trần Như Ái Trinh,AR10,120000.0,10
 Khoa123,2024-12-25,Nguyễn Thanh Phú Yên,B987,120000.0,15
 dvt,2025-05-25,Đặng Võ Thái,B789,152000.0,20
+kho456,2024-09-05,Nguyễn Văn A,C569,20000.0,15.0
+mvkd,2024-12-26,Nguyễn Vũ Khang,cx123,200000.0,15.0
+Nvkhoacoder,2025-04-05,Nguyễn Vũ Khoa,B508,150000.0,16.0
