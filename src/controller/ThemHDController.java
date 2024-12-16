@@ -18,13 +18,13 @@ public class ThemHDController {
         this.themHDOutputUi = themHDOutputUi;
     }
 
-    public void themHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double gioThue) {
-        HoaDonGio hoaDonGio = new HoaDonGio(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue);
+    public void themHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double gioThue, int loaiHD) {
+        HoaDonGio hoaDonGio = new HoaDonGio(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue,0);
         themHDData(hoaDonGio);
     }
 
-    public void themHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, int ngayThue) {
-        HoaDonNgay hoaDonNgay = new HoaDonNgay(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue);
+    public void themHD(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, int ngayThue, int loaiHD) {
+        HoaDonNgay hoaDonNgay = new HoaDonNgay(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue, 1);
         themHDData(hoaDonNgay);
     }
 

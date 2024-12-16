@@ -6,8 +6,8 @@ import java.time.LocalDate;
 public class HoaDonGio extends HoaDon implements Serializable {
     private double gioThue;
 
-    public HoaDonGio(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double gioThue) {
-        super(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia);
+    public HoaDonGio(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, double gioThue, int loaiHD) {
+        super(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD);
         this.gioThue = gioThue;
         if(gioThue > 30){
             throw new IllegalArgumentException("Không thể sử dụng hoá đơn theo giờ.Vui lòng làm lại theo hoá đơn ngày");

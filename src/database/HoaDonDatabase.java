@@ -97,12 +97,13 @@ public class HoaDonDatabase {
                     String maPhong = data[3];
                     double donGia = Double.parseDouble(data[4]);
                     double loaiHD = Double.parseDouble(data[5]);
+                    int loai = Integer.parseInt(data[6]);
 
                     HoaDon hoaDon;
-                    if (loaiHD % 1 == 0) {
-                        hoaDon = new HoaDonNgay(id, ngayHoaDon, tenKhachHang, maPhong, donGia, (int) loaiHD);
+                    if (loaiHD % 2 == 0) {
+                        hoaDon = new HoaDonNgay(id, ngayHoaDon, tenKhachHang, maPhong, donGia, (int) loaiHD, 1);
                     } else {
-                        hoaDon = new HoaDonGio(id, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD);
+                        hoaDon = new HoaDonGio(id, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD,0);
                     }
                     listHD.add(hoaDon);
 
@@ -151,25 +152,6 @@ public class HoaDonDatabase {
         return false;
     }
 
-    public static void ghiVaoFile(File fileName) {
-        try {
-            FileWriter fileStream = new FileWriter(fileName, true);
-            BufferedWriter bw = new BufferedWriter(fileStream);
-            for (HoaDon hoaDon : listHD) {
-                bw.write(hoaDon.toString());
-                bw.newLine();
-            }
-            bw.flush();
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
     public static List<HoaDon> docTuFile(File fileName) {
         listHD.clear();
         count = 0;
@@ -180,19 +162,20 @@ public class HoaDonDatabase {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 6) {
+                if (data.length == 7) {
                     String hoaDonID = data[0];
                     LocalDate ngayHoaDon = LocalDate.parse(data[1]);
                     String tenKhachHang = data[2];
                     String maPhong = data[3];
                     double donGia = Double.parseDouble(data[4]);
-                    double loaiHD = Double.parseDouble(data[5]);
-
+                    int loai = Integer.parseInt(data[6]);
                     HoaDon hoaDon;
-                    if (loaiHD % 1 == 0) {
-                        hoaDon = new HoaDonNgay(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, (int) loaiHD);
+                    if(loai == 1){
+                        int ngayThue = Integer.parseInt(data[5]);
+                        hoaDon = new HoaDonNgay(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue, loai);
                     } else {
-                        hoaDon = new HoaDonGio(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD);
+                        double gioThue = Double.parseDouble(data[5]);
+                        hoaDon = new HoaDonGio(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue, loai);
                     }
                     listHD.add(hoaDon);
                     count++;

@@ -10,6 +10,6 @@ public class DoanhThuTheoThangOutputUi {
     }
 
     public void hienThongBao(String message) {
-        System.out.println(message);
+        screenPrompt.println(message);
     }
 }

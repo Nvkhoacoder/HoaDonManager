@@ -39,6 +39,7 @@ public class DoanhThuInputUi {
         int nam = keyBoard.nextInt();
 
         tongDoanhThuController.tinhThanhTienMonthHD(thang,nam, fileData);
+        keyBoard.nextLine();
     }
 
 }
