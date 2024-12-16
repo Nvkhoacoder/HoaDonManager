@@ -35,7 +35,10 @@ public class HoaDonApp {
         DemHDData demHDData = new DemHDData(fileData);
         DemSoLuongHDOuputUi demSoLuongHDOuputUi = new DemSoLuongHDOuputUi(screenPrompt);
         DemSoLuongHDController demSoLuongHDController = new DemSoLuongHDController(demHDData,demSoLuongHDOuputUi);
-        HoaDonMenuConsoleUi hoaDonMenuConsoleUi = new HoaDonMenuConsoleUi(keyBoard,screenPrompt,themHDInputUi,suaHDInputUi,xoaHDInputUi,timHDInputUi,doanhThuInputUi,demSoLuongHDController);
+        InDanhSachDao inDanhSachDao = new InDanhSachDao(fileData);
+        InDanhSachController inDanhSachController = new InDanhSachController(inDanhSachDao);
+        InDanhSachUi inDanhSachUi = new InDanhSachUi(screenPrompt,inDanhSachController,fileData);
+        HoaDonMenuConsoleUi hoaDonMenuConsoleUi = new HoaDonMenuConsoleUi(keyBoard,screenPrompt,themHDInputUi,suaHDInputUi,xoaHDInputUi,timHDInputUi,doanhThuInputUi,demSoLuongHDController,inDanhSachUi);
 
         hoaDonMenuConsoleUi.hoaDonProgram();
     }

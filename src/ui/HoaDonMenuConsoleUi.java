@@ -17,8 +17,9 @@ public class HoaDonMenuConsoleUi {
     private TimHDInputUi timHDInputUi = null;
     private DoanhThuInputUi doanhThuInputUi = null;
     private DemSoLuongHDController demSoLuongHDController = null;
+    private InDanhSachUi inDanhSachUi = null;
 
-    public HoaDonMenuConsoleUi(Scanner keyBoardInput, PrintWriter screenPrompt, ThemHDInputUi themHDInputUi, SuaHDInputUi suaHDInputUi, XoaHDInputUi xoaHDInputUi, TimHDInputUi timHDInputUi, DoanhThuInputUi doanhThuInputUi, DemSoLuongHDController demSoLuongHDController) {
+    public HoaDonMenuConsoleUi(Scanner keyBoardInput, PrintWriter screenPrompt, ThemHDInputUi themHDInputUi, SuaHDInputUi suaHDInputUi, XoaHDInputUi xoaHDInputUi, TimHDInputUi timHDInputUi, DoanhThuInputUi doanhThuInputUi, DemSoLuongHDController demSoLuongHDController, InDanhSachUi inDanhSachUi) {
         this.keyBoardInput = keyBoardInput;
         this.screenPrompt = screenPrompt;
         this.themHDInputUi = themHDInputUi;
@@ -27,6 +28,7 @@ public class HoaDonMenuConsoleUi {
         this.timHDInputUi = timHDInputUi;
         this.doanhThuInputUi = doanhThuInputUi;
         this.demSoLuongHDController = demSoLuongHDController;
+        this.inDanhSachUi = inDanhSachUi;
         this.prompt = "Vui Lòng Nhập ->";
     }
 
@@ -73,13 +75,13 @@ public class HoaDonMenuConsoleUi {
                 timHD();
                 continue;
             }
-//
-//            if (command.equalsIgnoreCase("print")) {
-//
-//                inDSHD();
-//                continue;
-//            }
-//
+
+            if (command.equalsIgnoreCase("print")) {
+
+                inDSHD();
+                continue;
+            }
+
             if (command.equalsIgnoreCase("sl")) {
 
                 tongSoLuongHD();
@@ -118,12 +120,11 @@ public class HoaDonMenuConsoleUi {
 
         themHDInputUi.nhapThongTinHoaDon();
     }
-//
-//    private void inDSHD() {
-//        inDSHD.getDSHD();
-//
-//    }
-//
+
+    private void inDSHD() {
+        inDanhSachUi.hienThiDanhSachHoaDon();
+    }
+
     private void xoaHD() {
         xoaHDInputUi.nhapMaHoaDonCanXoa();
 

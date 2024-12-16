@@ -25,7 +25,7 @@ public class ThemHDInputUi {
         donGiaPrompt = "ĐƠN GIÁ: ";
         gioThuePrompt = "SỐ GIỜ THUÊ: ";
         ngayThuePrompt = "SỐ NGÀY THUÊ: ";
-        loaiHD = "LOẠI HOÁ ĐƠN [\"Gio\" / \"Ngay\" (0/1)]: ";
+        loaiHD = "LOẠI HOÁ ĐƠN [\"Gio\" / \"Ngay\"]: ";
     }
 
     public void nhapThongTinHoaDon() {
@@ -71,8 +71,8 @@ public class ThemHDInputUi {
         }
 
         screenPrompt.print(loaiHD);screenPrompt.flush();
-        int loaiHD = keyBoard.nextInt();
-        if (loaiHD == 0) {
+        String loaiHD = keyBoard.nextLine();
+        if ("Gio".equalsIgnoreCase(loaiHD)) {
             screenPrompt.print(gioThuePrompt);screenPrompt.flush();
             double gioThue;
             try {
@@ -84,7 +84,7 @@ public class ThemHDInputUi {
             }
 
             themHDController.themHD(maHoaDon, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue,0);
-        } else if (loaiHD == 1) {
+        } else if ("Ngay".equalsIgnoreCase(loaiHD)) {
             screenPrompt.print(ngayThuePrompt);screenPrompt.flush();
             int ngayThue;
             try {
