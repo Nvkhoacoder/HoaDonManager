@@ -18,7 +18,7 @@ public class TimHDInputUi {
         this.keyBoard = keyBoard;
         this.screenPrompt = screenPrompt;
         this.fileData = fileData;
-        hoaDonIDPrompt = "MÃ HOÁ ĐƠN: ";
+        hoaDonIDPrompt = "MA HOA ĐON: ";
     }
 
     public void nhapThongTinTim(){

@@ -1,6 +1,7 @@
 package ui;
 
 import controller.ThemHDController;
+import entity.LoaiHD;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -18,21 +19,21 @@ public class ThemHDInputUi {
         this.themHDController = themHDController;
         this.keyBoard = keyBoard;
         this.screenPrompt = screenPrompt;
-        hoaDonIDPrompt = "MÃ HOÁ ĐƠN: ";
-        ngayHoaDonPrompt = "NGÀY LÀM HOÁ ĐƠN (dd/MM/yyyy): ";
-        tenKhachHangPrompt = "TÊN KHÁCH HÀNG: ";
-        maPhongPrompt = "MÃ PHÒNG: ";
-        donGiaPrompt = "ĐƠN GIÁ: ";
-        gioThuePrompt = "SỐ GIỜ THUÊ: ";
-        ngayThuePrompt = "SỐ NGÀY THUÊ: ";
-        loaiHD = "LOẠI HOÁ ĐƠN [\"Gio\" / \"Ngay\"]: ";
+        hoaDonIDPrompt = "MA HOA DON: ";
+        ngayHoaDonPrompt = "NGAY LAM HOA DON (dd/MM/yyyy): ";
+        tenKhachHangPrompt = "TEN KHACH HANG: ";
+        maPhongPrompt = "MA PHONG: ";
+        donGiaPrompt = "DON GIA: ";
+        gioThuePrompt = "SO GIO THUE: ";
+        ngayThuePrompt = "SO NGAY THUE: ";
+        loaiHD = "LOAI HOA DON [\"Gio\" / \"Ngay\"]: ";
     }
 
     public void nhapThongTinHoaDon() {
         screenPrompt.print(hoaDonIDPrompt);screenPrompt.flush();
         String maHoaDon = keyBoard.nextLine();
         if (maHoaDon == null || maHoaDon.isEmpty()) {
-            screenPrompt.println("Mã hóa đơn không được để trống.");
+            screenPrompt.println("Ma hoa don khong duoc de trong.");
             return;
         }
 
@@ -42,21 +43,21 @@ public class ThemHDInputUi {
         try {
             ngayHoaDon = LocalDate.parse(ngayHoaDonStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } catch (Exception e) {
-            screenPrompt.println("Ngày hóa đơn không hợp lệ.");
+            screenPrompt.println("Ngay hoa don khong hop le.");
             return;
         }
 
         screenPrompt.print(tenKhachHangPrompt);screenPrompt.flush();
         String tenKhachHang = keyBoard.nextLine();
         if (tenKhachHang == null || tenKhachHang.isEmpty()) {
-            screenPrompt.println("Tên khách hàng không được để trống.");
+            screenPrompt.println("Ten khach hang khong duoc de trong.");
             return;
         }
 
         screenPrompt.print(maPhongPrompt);screenPrompt.flush();
         String maPhong = keyBoard.nextLine();
         if (maPhong == null || maPhong.isEmpty()) {
-            screenPrompt.println("Mã phòng không được để trống.");
+            screenPrompt.println("Ma phong khong duoc de trong.");
             return;
         }
 
@@ -65,8 +66,8 @@ public class ThemHDInputUi {
         try {
             donGia = keyBoard.nextDouble();keyBoard.nextLine();
         } catch (Exception e) {
-            screenPrompt.println("Đơn giá phải là số hợp lệ.");
-            keyBoard.nextLine(); // Clear buffer
+            screenPrompt.println("Don gia phai la so hop le.");
+            keyBoard.nextLine();
             return;
         }
 
@@ -78,26 +79,26 @@ public class ThemHDInputUi {
             try {
                 gioThue = keyBoard.nextDouble();keyBoard.nextLine();
             } catch (Exception e) {
-                screenPrompt.println("Số giờ thuê phải là số hợp lệ.");
-                keyBoard.nextLine(); // Clear buffer
+                screenPrompt.println("So gio thue phai la so hop le.");
+                keyBoard.nextLine();
                 return;
             }
 
-            themHDController.themHD(maHoaDon, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue,0);
+            themHDController.themHD(maHoaDon, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue, LoaiHD.GIO);
         } else if ("Ngay".equalsIgnoreCase(loaiHD)) {
             screenPrompt.print(ngayThuePrompt);screenPrompt.flush();
             int ngayThue;
             try {
                 ngayThue = keyBoard.nextInt();keyBoard.nextLine();
             } catch (Exception e) {
-                screenPrompt.println("Số ngày thuê phải là số hợp lệ.");
-                keyBoard.nextLine(); // Clear buffer
+                screenPrompt.println("So ngay thue phai la so hop le.");
+                keyBoard.nextLine();
                 return;
             }
 
-            themHDController.themHD(maHoaDon, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue,1);
+            themHDController.themHD(maHoaDon, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue,LoaiHD.NGAY);
         } else {
-            screenPrompt.println("Loại hóa đơn không hợp lệ. Vui lòng nhập 'Gio' hoặc 'Ngay'.");
+            screenPrompt.println("Loai hoa don khong hop le. Vui long nhap 'Gio' hoac 'Ngay'.");
         }
     }
 }

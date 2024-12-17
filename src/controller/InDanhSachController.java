@@ -1,19 +1,17 @@
 package controller;
 
-import database.InDanhSachDao;
+import database.InDSDao;
 import entity.HoaDon;
-
-import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
 public class InDanhSachController {
-    private InDanhSachDao inDanhSachDao = null;
+    private InDSDao inDSDao = null;
 
-    public InDanhSachController(InDanhSachDao inDanhSachDao) {
-        this.inDanhSachDao = inDanhSachDao;
+    public InDanhSachController(InDSDao inDSDao) {
+        this.inDSDao = inDSDao;
     }
 
-    public List<HoaDon> layDanhSachHoaDon(File fileName){
-        return inDanhSachDao.layDanhSachHD(fileName);
+    public ArrayList<HoaDon> layDanhSachHoaDon(){
+        return inDSDao.layDanhSachHD();
     }
 }

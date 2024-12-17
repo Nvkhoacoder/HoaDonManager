@@ -14,14 +14,15 @@ public class TongDoanhThuDao {
         this.fileData = fileData;
     }
 
-    public List<HoaDon> getHoaDonTheoThang(int thang, int nam, File fileData){
-        List<HoaDon> danhSachHoaDon = HoaDonDatabase.docTuFile(fileData);
+    public ArrayList<HoaDon> getHoaDonTheoThang(int thang, int nam, File fileData) {
+        // Initialize danhSachHoaDon as ArrayList
+        ArrayList<HoaDon> danhSachHoaDon = HoaDonDatabase.docTuFile(fileData);
 
-        // Filter the list based on the month and year
+        // Filter the list based on the month and year and return as ArrayList
         return danhSachHoaDon.stream()
                 .filter(hd -> hd.getNgayHoaDon() != null &&
                         hd.getNgayHoaDon().getMonthValue() == thang &&
                         hd.getNgayHoaDon().getYear() == nam)
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

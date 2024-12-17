@@ -18,6 +18,7 @@ public class TimHDController {
         boolean isFind = timHDData.timHD(hoaDonID, fileData);
         if(isFind){
             timHDOutputUi.hienThongBao();
+
         } else {
             System.out.println("Không tìm thấy Hoá Đơn: " + hoaDonID);
         }

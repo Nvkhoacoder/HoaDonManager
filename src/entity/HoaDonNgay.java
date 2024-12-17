@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class HoaDonNgay extends HoaDon implements Serializable {
     private int ngayThue;
 
-    public HoaDonNgay(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, int ngayThue, int loaiHD) {
+    public HoaDonNgay(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, int ngayThue, LoaiHD loaiHD) {
         super(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD);
         this.ngayThue = ngayThue;
     }
@@ -28,8 +28,4 @@ public class HoaDonNgay extends HoaDon implements Serializable {
         }
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + String.format(",%d", ngayThue);
-    }
 }

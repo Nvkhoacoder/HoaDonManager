@@ -12,6 +12,7 @@ public class HoaDonApp {
         File fileData = new File("HoaDonDatabase.txt");
         ThemHDDataFile themHDDataFile = new ThemHDDataFile("HoaDonDatabase.txt");
         SuaHDDao suaHDDao = new SuaHDDao("HoaDonDatabase.txt");
+        ThemHDDao themHDDao = new ThemHDDao();
         PrintWriter screenPrompt = new PrintWriter(System.out, true);
         Scanner keyBoard = new Scanner(System.in);
         ThemHDOutputUi themHDOutputUi = new ThemHDOutputUi(screenPrompt);
@@ -33,11 +34,11 @@ public class HoaDonApp {
         TongDoanhThuController tongDoanhThuController = new TongDoanhThuController(tongDoanhThuDao,doanhThuTheoThangOutputUi);
         DoanhThuInputUi doanhThuInputUi = new DoanhThuInputUi(tongDoanhThuController,keyBoard,screenPrompt,fileData);
         DemHDData demHDData = new DemHDData(fileData);
-        DemSoLuongHDOuputUi demSoLuongHDOuputUi = new DemSoLuongHDOuputUi(screenPrompt);
-        DemSoLuongHDController demSoLuongHDController = new DemSoLuongHDController(demHDData,demSoLuongHDOuputUi);
+        DemSoLuongHDController demSoLuongHDController = new DemSoLuongHDController(demHDData);
+        InDanhSach inDanhSach = new InDanhSach();
         InDanhSachDao inDanhSachDao = new InDanhSachDao(fileData);
         InDanhSachController inDanhSachController = new InDanhSachController(inDanhSachDao);
-        InDanhSachUi inDanhSachUi = new InDanhSachUi(screenPrompt,inDanhSachController,fileData);
+        InDanhSachUi inDanhSachUi = new InDanhSachUi(screenPrompt,inDanhSachController);
         HoaDonMenuConsoleUi hoaDonMenuConsoleUi = new HoaDonMenuConsoleUi(keyBoard,screenPrompt,themHDInputUi,suaHDInputUi,xoaHDInputUi,timHDInputUi,doanhThuInputUi,demSoLuongHDController,inDanhSachUi);
 
         hoaDonMenuConsoleUi.hoaDonProgram();

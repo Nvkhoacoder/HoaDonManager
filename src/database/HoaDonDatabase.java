@@ -3,6 +3,7 @@ package database;
 import entity.HoaDon;
 import entity.HoaDonGio;
 import entity.HoaDonNgay;
+import entity.LoaiHD;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -13,6 +14,11 @@ import java.util.Scanner;
 public class HoaDonDatabase {
     private static ArrayList<HoaDon> listHD = new ArrayList<>();;
     private static int count = 0;
+
+    public static void initDatabase() {
+        addHoaDon(new HoaDonGio("nvk544", LocalDate.of(2024,04,05),"Nguyễn Vũ Khoa","LM10",100000,15,LoaiHD.GIO));
+        addHoaDon(new HoaDonNgay("tnat2806",LocalDate.of(2024,06,28),"Trần Như Ái Trinh","AR10",120000,10,LoaiHD.NGAY));
+    }
 
 
     public static void addHoaDon(HoaDon hoaDon) {
@@ -77,72 +83,47 @@ public class HoaDonDatabase {
         }
     }
 
-    public static boolean xoaHoaDon(String hoaDonID,File fileData) {
-        if (hoaDonID == null || hoaDonID.trim().isEmpty()) {
+    public static boolean xoaHoaDon(String maHoaDon, File fileData) {
+        if (maHoaDon == null || maHoaDon.trim().isEmpty()) {
             System.out.println("Mã hóa đơn không được để trống.");
             return false;
         }
 
-        List<HoaDon> listHD = new ArrayList<>();
-        HoaDon hoaDonToRemove = null;
+        List<String> lines = new ArrayList<>();
+        boolean found = false;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileData))) {
+        // Đọc file và lọc các dòng không chứa mã hóa đơn cần xóa
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileData))) {
             String line;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length == 6) {
-                    String id = data[0];
-                    LocalDate ngayHoaDon = LocalDate.parse(data[1]);
-                    String tenKhachHang = data[2];
-                    String maPhong = data[3];
-                    double donGia = Double.parseDouble(data[4]);
-                    double loaiHD = Double.parseDouble(data[5]);
-                    int loai = Integer.parseInt(data[6]);
-
-                    HoaDon hoaDon;
-                    if (loaiHD % 2 == 0) {
-                        hoaDon = new HoaDonNgay(id, ngayHoaDon, tenKhachHang, maPhong, donGia, (int) loaiHD, 1);
-                    } else {
-                        hoaDon = new HoaDonGio(id, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD,0);
-                    }
-                    listHD.add(hoaDon);
-
-                    if (id.equalsIgnoreCase(hoaDonID)) {
-                        hoaDonToRemove = hoaDon;
-                    }
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(maHoaDon)) {
+                    found = true; // Tìm thấy mã hóa đơn
+                } else {
+                    lines.add(line); // Giữ lại các dòng khác
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Lỗi khi đọc file: " + e.getMessage());
             return false;
         }
 
-        if (hoaDonToRemove != null) {
-            listHD.remove(hoaDonToRemove);
+        if (!found) {
+            System.out.println("Không tìm thấy hóa đơn với mã: " + maHoaDon);
+            return false;
+        }
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileData))) {
-                for (HoaDon hoaDon : listHD) {
-                    if (hoaDon instanceof HoaDonNgay) {
-                        HoaDonNgay hoaDonNgay = (HoaDonNgay) hoaDon;
-                        bw.write(hoaDonNgay.getHoaDonID() + "," + hoaDonNgay.getNgayHoaDon() + ","
-                                + hoaDonNgay.getTenKhachHang() + "," + hoaDonNgay.getMaPhong() + ","
-                                + hoaDonNgay.getDonGia() + "," + hoaDonNgay.getNgayThue());
-                    } else if (hoaDon instanceof HoaDonGio) {
-                        HoaDonGio hoaDonGio = (HoaDonGio) hoaDon;
-                        bw.write(hoaDonGio.getHoaDonID() + "," + hoaDonGio.getNgayHoaDon() + ","
-                                + hoaDonGio.getTenKhachHang() + "," + hoaDonGio.getMaPhong() + ","
-                                + hoaDonGio.getDonGia() + "," + hoaDonGio.getGioThue());
-                    }
-                    bw.newLine();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
+        // Ghi lại các dòng còn lại vào file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileData))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
             }
-            return true;
-        } else {
+        } catch (IOException e) {
+            System.err.println("Lỗi khi ghi file: " + e.getMessage());
             return false;
         }
+
+        return true;
     }
 
     public static boolean timHoaDon(String hoaDonID, File fileData) {
@@ -152,7 +133,7 @@ public class HoaDonDatabase {
         return false;
     }
 
-    public static List<HoaDon> docTuFile(File fileName) {
+    public static ArrayList<HoaDon> docTuFile(File fileName) {
         listHD.clear();
         count = 0;
 
@@ -168,9 +149,10 @@ public class HoaDonDatabase {
                     String tenKhachHang = data[2];
                     String maPhong = data[3];
                     double donGia = Double.parseDouble(data[4]);
-                    int loai = Integer.parseInt(data[6]);
+                    String loaiString = data[6].trim();
+                    LoaiHD loai = LoaiHD.valueOf(loaiString.toUpperCase());
                     HoaDon hoaDon;
-                    if(loai == 1){
+                    if(loai == LoaiHD.NGAY){
                         int ngayThue = Integer.parseInt(data[5]);
                         hoaDon = new HoaDonNgay(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue, loai);
                     } else {
