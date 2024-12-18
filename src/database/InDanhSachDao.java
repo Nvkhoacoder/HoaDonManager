@@ -3,7 +3,6 @@ package database;
 import entity.HoaDon;
 import entity.HoaDonGio;
 import entity.HoaDonNgay;
-import entity.LoaiHD;
 
 import java.io.*;
 import java.time.LocalDate;

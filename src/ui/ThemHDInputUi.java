@@ -1,7 +1,6 @@
 package ui;
 
 import controller.ThemHDController;
-import entity.LoaiHD;
 
 import java.io.PrintWriter;
 import java.time.LocalDate;

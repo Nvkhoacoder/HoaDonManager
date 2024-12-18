@@ -3,14 +3,11 @@ package database;
 import entity.HoaDon;
 import entity.HoaDonGio;
 import entity.HoaDonNgay;
-import entity.LoaiHD;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class HoaDonDatabase {
     private static ArrayList<HoaDon> listHD = new ArrayList<>();;

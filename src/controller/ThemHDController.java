@@ -5,7 +5,6 @@ import database.ThemDao;
 import entity.HoaDon;
 import entity.HoaDonGio;
 import entity.HoaDonNgay;
-import entity.LoaiHD;
 import ui.ThemHDOutputUi;
 
 import java.time.LocalDate;
