@@ -1,21 +1,22 @@
 package controller;
 
-import database.TimHDData;
+import database.TimDao;
+
 import ui.TimHDOutputUi;
 
 import java.io.File;
 
 public class TimHDController {
-    private TimHDData timHDData = null;
+    private TimDao timDao = null;
     private TimHDOutputUi timHDOutputUi = null;
 
-    public TimHDController(TimHDData timHDData, TimHDOutputUi timHDOutputUi) {
-        this.timHDData = timHDData;
+    public TimHDController(TimDao timDao, TimHDOutputUi timHDOutputUi) {
+        this.timDao = timDao;
         this.timHDOutputUi = timHDOutputUi;
     }
 
-    public void timHD(String hoaDonID, File fileData){
-        boolean isFind = timHDData.timHD(hoaDonID, fileData);
+    public void timHD(String hoaDonID){
+        boolean isFind = timDao.timHD(hoaDonID);
         if(isFind){
             timHDOutputUi.hienThongBao();
 

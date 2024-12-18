@@ -11,13 +11,11 @@ public class XoaHDInputUi {
     private Scanner keyBoard = null;
     private PrintWriter screenPrompt = null;
     private String maHoaDonPrompt;
-    private File fileData = null;
 
-    public XoaHDInputUi(XoaHDController xoaHDController, Scanner keyBoard, PrintWriter screenPrompt, File fileData) {
+    public XoaHDInputUi(XoaHDController xoaHDController, Scanner keyBoard, PrintWriter screenPrompt) {
         this.xoaHDController = xoaHDController;
         this.keyBoard = keyBoard;
         this.screenPrompt = screenPrompt;
-        this.fileData = fileData;
 
         maHoaDonPrompt = "MA HOA DON: ";
     }
@@ -25,6 +23,6 @@ public class XoaHDInputUi {
     public void nhapMaHoaDonCanXoa(){
         screenPrompt.print(maHoaDonPrompt); screenPrompt.flush();
         String maHoaDon = keyBoard.nextLine();
-        xoaHDController.xoaHD(maHoaDon, fileData);
+        xoaHDController.xoaHD(maHoaDon);
     }
 }

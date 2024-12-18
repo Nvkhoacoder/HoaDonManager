@@ -10,6 +10,6 @@ public class SuaHDOutputUi {
     }
 
     public void hienThongBao(){
-        screenPronmpt.println("Bạn đã sữa thành công Hoá Đơn");
+        screenPronmpt.println("Bạn đã sửa thành công Hoá Đơn");
     }
 }

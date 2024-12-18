@@ -6,8 +6,8 @@ import java.time.LocalDate;
 public class HoaDonNgay extends HoaDon implements Serializable {
     private int ngayThue;
 
-    public HoaDonNgay(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, int ngayThue, LoaiHD loaiHD) {
-        super(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, loaiHD);
+    public HoaDonNgay(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, int ngayThue, String loaiHD) {
+        super(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, "Hoa Don Ngay");
         this.ngayThue = ngayThue;
     }
 

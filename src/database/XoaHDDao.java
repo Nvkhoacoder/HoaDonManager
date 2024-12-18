@@ -1,15 +1,9 @@
 package database;
 
-import java.io.File;
+public class XoaHDDao extends XoaDao {
 
-public class XoaHDDao {
-    private File fileData = null;
-
-    public XoaHDDao(File fileData){
-        this.fileData = fileData;
-    }
-
-    public boolean xoaHoaDon(String hoaDonId, File fileData){
-        return HoaDonDatabase.xoaHoaDon(hoaDonId, fileData);
+    @Override
+    public boolean xoaHoaDon(String maHoaDon){
+        return HoaDonDatabase.xoaHoaDon(maHoaDon);
     }
 }

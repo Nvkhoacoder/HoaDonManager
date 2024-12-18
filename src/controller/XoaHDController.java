@@ -1,21 +1,22 @@
 package controller;
 
+import database.XoaDao;
 import database.XoaHDDao;
 import ui.XoaHDOutputUi;
 
 import java.io.File;
 
 public class XoaHDController {
-    private XoaHDDao xoaHDDao = null;
+    private XoaDao xoaDao = null;
     private XoaHDOutputUi xoaHDOutputUi = null;
 
-    public XoaHDController(XoaHDDao xoaHDDao, XoaHDOutputUi xoaHDOutputUi) {
-        this.xoaHDDao = xoaHDDao;
+    public XoaHDController(XoaDao xoaDao, XoaHDOutputUi xoaHDOutputUi) {
+        this.xoaDao = xoaDao;
         this.xoaHDOutputUi = xoaHDOutputUi;
     }
 
-    public void xoaHD(String hoaDonID, File fileData) {
-        boolean isDeleted = xoaHDDao.xoaHoaDon(hoaDonID, fileData);
+    public void xoaHD(String hoaDonID) {
+        boolean isDeleted = xoaDao.xoaHoaDon(hoaDonID);
         if (isDeleted) {
             xoaHDOutputUi.hienThongBao();
         } else {

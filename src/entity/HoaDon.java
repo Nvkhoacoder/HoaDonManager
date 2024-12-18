@@ -9,10 +9,10 @@ public abstract class HoaDon implements Serializable {
     protected String tenKhachHang;
     protected String maPhong;
     protected double donGia;
-    protected LoaiHD loaiHD;
+    protected String loaiHD;
 
 
-    public HoaDon(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, LoaiHD loaiHD) {
+    public HoaDon(String hoaDonID, LocalDate ngayHoaDon, String tenKhachHang, String maPhong, double donGia, String loaiHD) {
         this.hoaDonID = hoaDonID;
         this.ngayHoaDon = ngayHoaDon;
         this.tenKhachHang = tenKhachHang;
@@ -61,11 +61,11 @@ public abstract class HoaDon implements Serializable {
         this.donGia = donGia;
     }
 
-    public LoaiHD getLoaiHD() {
+    public String getLoaiHD() {
         return loaiHD;
     }
 
-    public void setLoaiHD(LoaiHD loaiHD) {
+    public void setLoaiHD(String loaiHD) {
         this.loaiHD = loaiHD;
     }
 

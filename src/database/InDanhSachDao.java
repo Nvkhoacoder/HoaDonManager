@@ -31,15 +31,16 @@ public class InDanhSachDao implements InDSDao{
                     String tenKhachHang = data[2];
                     String maPhong = data[3];
                     double donGia = Double.parseDouble(data[4]);
-                    String loaiString = data[6].trim(); // Remove extra spaces
-                    LoaiHD loai = LoaiHD.valueOf(loaiString.toUpperCase());
+                    String loaiString = data[6];
                     HoaDon hoaDon;
-                    if(loai == LoaiHD.NGAY){
+                    if(loaiString.equalsIgnoreCase("Hoa Don Ngay")) {
                         int ngayThue = Integer.parseInt(data[5]);
-                        hoaDon = new HoaDonNgay(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue, loai);
-                    } else {
+                        hoaDon = new HoaDonNgay(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, ngayThue, loaiString);
+                    } else if (loaiString.equalsIgnoreCase("Hoa Don Gio")){
                         double gioThue = Double.parseDouble(data[5]);
-                        hoaDon = new HoaDonGio(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue, loai);
+                        hoaDon = new HoaDonGio(hoaDonID, ngayHoaDon, tenKhachHang, maPhong, donGia, gioThue, loaiString);
+                    } else {
+                        throw new IllegalArgumentException("Loai hoa don không hop le: " + loaiString);
                     }
                     layDanhSach.add(hoaDon);
                 }
