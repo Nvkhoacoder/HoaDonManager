@@ -14,7 +14,7 @@ public class HoaDonDatabase {
     private static int count = 0;
 
     public static void initDatabase() {
-        addHoaDon(new HoaDonGio("nvk544", LocalDate.of(2024,04,05),"Nguyễn Vũ Khoa","LM10",100000,15,"Hoa Đon Gio"));
+        addHoaDon(new HoaDonGio("nvk544", LocalDate.of(2024,04,05),"Nguyễn Vũ Khoa","LM10",100000,15.0f,"Hoa Đon Gio"));
         addHoaDon(new HoaDonNgay("tnat2806",LocalDate.of(2024,06,28),"Trần Như Ái Trinh","AR10",120000,10,"Hoa Don Ngay"));
     }
 
